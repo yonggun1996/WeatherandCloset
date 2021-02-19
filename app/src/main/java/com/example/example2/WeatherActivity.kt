@@ -104,7 +104,7 @@ class WeatherActivity: AppCompatActivity() {
 
                     //RecyclerView를 이용하기 위해 WeatherData 클래스에
                     //날짜, 날씨이미지, 날씨, 체감기온을 전달해 준다
-                    Log.d(TAG,"날짜 : ${setting_date_txt}, 이미지코드 : ${weather_icon}, 날씨 : ${setting_weather_txt}, 체감기온 : ${Math.round(dt_temp).toInt()}")
+                    Log.d(TAG,"날짜 : ${setting_date_txt}, 이미지코드 : ${weather_icon}, 날씨 : ${setting_weather_txt}, 기온 : ${Math.round(dt_temp).toInt()}")
                     setting_weather_list.add(WeatherData(setting_date_txt,weather_icon,setting_weather_txt,Math.round(dt_temp).toInt()))
                 }//for
 
