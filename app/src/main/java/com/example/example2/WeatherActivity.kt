@@ -32,7 +32,7 @@ class WeatherActivity: AppCompatActivity() {
     private val TAG = "WeatherActivity"
     var latitude :Double? = null
     var longitude :Double? = null
-    var list : ArrayList<Long> = ArrayList<Long>()
+    var settingtime_list : ArrayList<Long> = ArrayList<Long>()
     var sex_code = 0
     var unixtime1 = 0L
     var unixtime2 = 0L
@@ -57,7 +57,7 @@ class WeatherActivity: AppCompatActivity() {
         val i = intent
         latitude = i.extras?.getDouble("latitude",0.0)//인텐트로 위도 얻어옴
         longitude = i.extras?.getDouble("longitude",0.0)//인텐트로 경도 얻어옴
-        list = i.getSerializableExtra("date_List") as  ArrayList<Long>
+        settingtime_list = i.getSerializableExtra("date_List") as  ArrayList<Long>
         sex_code = i.getIntExtra("sex_code",0)
         Log.d(TAG,"경도 : ${latitude} / 위도 : ${longitude}} / 성별코드${sex_code}")
 
@@ -71,8 +71,8 @@ class WeatherActivity: AppCompatActivity() {
             Response.Listener { response ->
                 val jsonArray = response.getJSONArray("hourly")
 
-                unixtime1 = list.get(0)
-                unixtime2 = list.get(1)
+                unixtime1 = settingtime_list.get(0)
+                unixtime2 = settingtime_list.get(1)
                 Log.d(TAG,"유닉스타임1 : ${unixtime1}")
 
                 //unixtime을 이용해 JSON 배열의 값을 읽어들인다
@@ -95,7 +95,7 @@ class WeatherActivity: AppCompatActivity() {
                     feels_like_list.add(list_index,Math.round(dt_feels_like).toInt())
                     uv_list.add(list_index,dt_uv)
 
-                    Log.d(TAG,"시간 : ${index} / 온도 : ${Math.round(dt_feels_like)} / 자외선 : ${dt_uv}")
+                    Log.d(TAG,"시간 : ${index} / 체감온도 : ${Math.round(dt_feels_like)} / 자외선 : ${dt_uv}")
 
                     temp_total += Math.round(dt_feels_like).toInt()
                     list_index++
@@ -109,9 +109,9 @@ class WeatherActivity: AppCompatActivity() {
                 }//for
 
                 //만약 외출시간2도 입력받았다면 그것도 배열에 담는다
-                if(list.size == 4){
-                    unixtime3 = list.get(2)
-                    unixtime4 = list.get(3)
+                if(settingtime_list.size == 4){
+                    unixtime3 = settingtime_list.get(2)
+                    unixtime4 = settingtime_list.get(3)
                     start = (unixtime3 - now_unixtime) / 3600
                     finish = (unixtime4 - now_unixtime) / 3600
 
@@ -127,7 +127,7 @@ class WeatherActivity: AppCompatActivity() {
                         feels_like_list.add(list_index,Math.round(dt_feels_like).toInt())
                         uv_list.add(list_index,dt_uv)
 
-                        Log.d(TAG,"시간 : ${index} / 온도 : ${Math.round(dt_feels_like)} / 자외선 : ${dt_uv}")
+                        Log.d(TAG,"시간 : ${index} / 체감기온 : ${Math.round(dt_feels_like)} / 자외선 : ${dt_uv}")
 
                         temp_total += Math.round(dt_feels_like).toInt()
                         list_index++
@@ -137,7 +137,7 @@ class WeatherActivity: AppCompatActivity() {
 
                         //RecyclerView를 이용하기 위해 WeatherData 클래스에
                         //날짜, 날씨이미지, 날씨, 체감기온을 전달해 준다
-                        Log.d(TAG,"날짜 : ${setting_date_txt}, 이미지코드 : ${weather_icon}, 날씨 : ${setting_weather_txt}, 체감기온 : ${Math.round(dt_temp).toInt()}")
+                        Log.d(TAG,"날짜 : ${setting_date_txt}, 이미지코드 : ${weather_icon}, 날씨 : ${setting_weather_txt}, 기온 : ${Math.round(dt_temp).toInt()}")
                         setting_weather_list.add(WeatherData(setting_date_txt,weather_icon,setting_weather_txt,Math.round(dt_temp).toInt()))
                     }
                 }
@@ -170,7 +170,7 @@ class WeatherActivity: AppCompatActivity() {
         var hot = 0//더운 온도는 얼마나 있는가
 
         //추운온도, 더운온도가 얼마나 있는지 나타내는 코드
-        for(i in 0 .. list_size - 1){
+        for(i in 0 .. list_size -1){
             if(feels_like_list[i] <= 9){
                 cold++
             }else if(feels_like_list[i] >= 26){
@@ -179,16 +179,16 @@ class WeatherActivity: AppCompatActivity() {
         }//for
 
         //평균온도를 정하는 코드
-        if(cold >= list_size){//추운날이 절반 이상이면 최저온도
+        if(cold >= list_size / 2){//추운날이 절반 이상이면 최저온도
             flag_temp = feels_like_list.get(0)
-        }else if(hot >= list_size){//더운날이 절반 이상이면 최고온도
+        }else if(hot >= list_size / 2){//더운날이 절반 이상이면 최고온도
             flag_temp = feels_like_list.get(list_size - 1)
         }else{//둘 다 해당되지 않으면 평균온도
             var temp_double= (temp_total / list_size).toDouble()
             flag_temp = Math.round(temp_double).toInt()
         }
 
-        if((feels_like_list.get(0) > 9 && feels_like_list.get(feels_like_list.size - 1) < 26) && feels_like_list.get(list_size - 1) - feels_like_list.get(0) >= 10){
+        if((feels_like_list.get(0) < 26 || feels_like_list.get(feels_like_list.size - 1) > 9) && feels_like_list.get(list_size - 1) - feels_like_list.get(0) >= 7){
             //일교차가 심하면 true
             daily_cross_flag = true
         }
@@ -425,7 +425,7 @@ class WeatherActivity: AppCompatActivity() {
     //back버튼을 눌렀을 때 동작
     override fun onBackPressed() {
         requestQueue.cache.clear()
-        list.removeAll(list)
+        settingtime_list.removeAll(settingtime_list)
         Log.d(TAG,"받아온 데이터를 지웁니다.")
         super.onBackPressed()
     }
