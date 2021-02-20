@@ -163,12 +163,12 @@
 
     <TextView
         android:id="@+id/waring_tv"
-        android:layout_width="240dip"
+        android:layout_width="280dip"
         android:layout_height="20dip"
         android:layout_marginStart="20dip"
         android:layout_marginTop="40sp"
         android:layout_marginBottom="40dip"
-        android:text="출근(등교)시간은 꼭 설정해주세요"
+        android:text="성별과 출근(등교)시간은 꼭 설정해주세요"
         android:textColor="#FF8200"
         app:layout_constraintBottom_toTopOf="@+id/textView4"
         app:layout_constraintStart_toStartOf="parent"

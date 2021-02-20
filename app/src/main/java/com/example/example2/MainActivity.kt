@@ -251,7 +251,7 @@ class MainActivity : AppCompatActivity() {
                             if(out1_time2_second >= out2_time1_second || out1_time2_second >= out2_time2_second){
                                 Toast.makeText(this,"출근(등교)시간보다 뒤의 시간으로 설정해주세요",Toast.LENGTH_SHORT).show()
                                 date_time_List.removeAll(date_time_List)
-                            }else if(out2_time1_second >= out2_time2_second){
+                            }else if(out2_time1_second > out2_time2_second){
                                 Toast.makeText(this,"시간 설정을 알맞게 해주세요",Toast.LENGTH_SHORT).show()
                                 date_time_List.removeAll(date_time_List)
                             }else{
