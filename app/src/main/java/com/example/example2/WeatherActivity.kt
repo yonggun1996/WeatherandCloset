@@ -42,6 +42,8 @@ class WeatherActivity: AppCompatActivity() {
     val uv_list = ArrayList<Double>()
     var flag_temp = 0 //기준이 되는 온도 설정
     var daily_cross_flag = false//일교차를 느끼는 온도인가 아닌가
+    var hot_day = false
+    var cold_day = false
     val setting_weather_list : ArrayList<WeatherData> = ArrayList<WeatherData>()
     var url : String = ""
     lateinit var requestQueue : RequestQueue
@@ -181,14 +183,16 @@ class WeatherActivity: AppCompatActivity() {
         //평균온도를 정하는 코드
         if(cold >= list_size / 2){//추운날이 절반 이상이면 최저온도
             flag_temp = feels_like_list.get(0)
+            cold_day = true
         }else if(hot >= list_size / 2){//더운날이 절반 이상이면 최고온도
             flag_temp = feels_like_list.get(list_size - 1)
+            hot_day = true
         }else{//둘 다 해당되지 않으면 평균온도
             var temp_double= (temp_total / list_size).toDouble()
             flag_temp = Math.round(temp_double).toInt()
         }
 
-        if((feels_like_list.get(0) < 26 || feels_like_list.get(feels_like_list.size - 1) > 9) && feels_like_list.get(list_size - 1) - feels_like_list.get(0) >= 7){
+        if((feels_like_list.get(0) < 23 || feels_like_list.get(list_size - 1) > 4) && feels_like_list.get(list_size - 1) - feels_like_list.get(0) >= 7){
             //일교차가 심하면 true
             daily_cross_flag = true
         }
@@ -367,29 +371,36 @@ class WeatherActivity: AppCompatActivity() {
         var other_str = ""
 
         if(flag_temp <= -1){
-            other_str = "많이 춥습니다. 목도리, 장갑, 귀마개, 핫팩, 발열내의등 방한도구를 챙기시는걸 추천합니다."
+            other_str = "많이 춥습니다. 목도리, 장갑, 귀마개, 핫팩, 발열내의등 방한도구를 챙기시는걸 추천합니다.\n"
         }else if(flag_temp >= 0 && flag_temp <= 9){
-            other_str = "추위를 느낄수도 있습니다. 핫팩을 챙기거나 발열내의를 입으시는걸 추천합니다."
+            other_str = "추위를 느낄수도 있습니다. 핫팩을 챙기거나 발열내의를 입으시는걸 추천합니다.\n"
         }else if(flag_temp >= 26 && flag_temp <= 30){
-            other_str = "더위를 느낄수도 있습니다. 꽉 끼는옷은 추천하지 않습니다."
+            other_str = "더위를 느낄수도 있습니다. 꽉 끼는옷은 추천하지 않습니다.\n"
 
             if(uv_temp >= 3){
-                other_str += "\n자외선 지수가 높습니다. 밝은 계열의 옷을 추천합니다."
+                other_str += "\n자외선 지수가 높습니다. 밝은 계열의 옷을 추천합니다.\n"
             }
         }else if(flag_temp >= 31){
-            other_str = "많이 덥습니다. 통풍이 잘 되는 옷을 추천합니다."
+            other_str = "많이 덥습니다. 통풍이 잘 되는 옷을 추천합니다.\n"
 
             if(uv_temp >= 3){
-                other_str += "\n자외선 지수가 높습니다. 밝은 계열의 옷을 추천합니다."
+                other_str += "\n자외선 지수가 높습니다. 밝은 계열의 옷을 추천합니다.\n"
             }
         }else{
             if(uv_temp >= 3){
-                other_str += "\n자외선 지수가 높습니다. 밝은 계열의 옷을 추천합니다."
+                other_str += "\n자외선 지수가 높습니다. 밝은 계열의 옷을 추천합니다.\n"
             }
         }
 
+        //일교차가 느껴진다면
         if(daily_cross_flag){
-            other_str += "\n일교차가 큰 하루 입니다. 간단한 겉옷을 준비하는걸 어떻까요?"
+            var outer_str = Outerwear_temperature()
+
+            if(cold_day){
+                other_str += "\n일교차가 큰 날씨입니다. 더위를 잘 탄다면 ${outer_str}를 입는걸 추천합니다.\n"
+            }else if(hot_day){
+                other_str += "\n일교차가 큰 날씨입니다. 추위를 잘 탄다면 ${outer_str}를 입는걸 추천합니다.\n"
+            }
         }
 
         text_other.setText(other_str)
@@ -420,6 +431,31 @@ class WeatherActivity: AppCompatActivity() {
         date.time
         var sdf_str = sdf.format(date)
         return sdf_str
+    }
+
+    private fun Outerwear_temperature() : String{
+        var outer = ""
+        var max_temp = feels_like_list.get(feels_like_list.size - 1)
+        var min_temp = feels_like_list.get(0)
+        if(cold_day){
+
+            when(max_temp){
+                in 5..8 -> outer = "두껍지 않은 코트"
+                in 9 .. 16 -> outer = "자켓"
+                in 17 .. 19 -> outer = "가디건"
+                in 20 .. 22 -> outer = "얇은 가디건"
+            }
+        }else if(hot_day){
+
+            when(min_temp){
+                in 20 .. 22 -> outer = "얇은 가디건"
+                in 17 .. 19 -> outer = "가디건"
+                in 9 .. 16 -> outer = "자켓"
+                in 5..8 -> outer = "두껍지 않은 코트"
+            }
+        }
+
+        return outer
     }
 
     //back버튼을 눌렀을 때 동작
