@@ -192,7 +192,7 @@ class WeatherActivity: AppCompatActivity() {
             flag_temp = Math.round(temp_double).toInt()
         }
 
-        if((feels_like_list.get(0) < 23 || feels_like_list.get(list_size - 1) > 4) && feels_like_list.get(list_size - 1) - feels_like_list.get(0) >= 7){
+        if((feels_like_list.get(0) < 23 && feels_like_list.get(list_size - 1) > 4) && feels_like_list.get(list_size - 1) - feels_like_list.get(0) >= 7){
             //일교차가 심하면 true
             daily_cross_flag = true
         }
