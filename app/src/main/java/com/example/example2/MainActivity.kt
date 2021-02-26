@@ -6,27 +6,25 @@ import android.content.DialogInterface
 import android.content.Intent
 import android.content.pm.ActivityInfo
 import android.content.pm.PackageManager
-import android.graphics.Color
 import android.location.Location
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
+import android.view.Menu
+import android.view.MenuInflater
+import android.view.MenuItem
 import android.view.View
 import android.widget.AdapterView
 import android.widget.ArrayAdapter
 import android.widget.Toast
-import androidx.appcompat.app.ActionBar
 import androidx.appcompat.app.AlertDialog
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
-import androidx.core.view.MenuItemCompat
 import com.google.android.gms.location.LocationServices
 import kotlinx.android.synthetic.main.activity_main.*
-import kotlinx.android.synthetic.main.activity_weather.*
 import java.text.SimpleDateFormat
 import java.time.Instant
 import java.time.LocalDate
-import java.time.LocalTime
 import java.time.format.DateTimeFormatter
 
 class MainActivity : AppCompatActivity() {
@@ -37,7 +35,7 @@ class MainActivity : AppCompatActivity() {
     var date1 = now.format(DateTimeFormatter.ofPattern("yyyy년 MM월 dd일"))
     var date2 = now.plusDays(1).format(DateTimeFormatter.ofPattern("yyyy년 MM월 dd일"))
 
-    val datelist : List<String> = listOf("날짜 선택",date1,date2)
+    val datelist : List<String> = listOf(date1,date2)
     val timelist : List<String> = listOf("시간 선택","0시","1시","2시","3시","4시","5시","6시","7시","8시","9시","10시","11시","12시",
                                             "13시","14시","15시","16시","17시","18시","19시","20시","21시","22시","23시")
 
@@ -59,6 +57,28 @@ class MainActivity : AppCompatActivity() {
     var latitude : Double = 1.0
     var longitude : Double = 1.0
     var date_time_List : ArrayList<Long> = ArrayList<Long>()
+
+    override fun onCreateOptionsMenu(menu: Menu?): Boolean {
+        val inflater : MenuInflater = menuInflater
+        inflater.inflate(R.menu.titlebar_menu, menu)
+        return true
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        when (item.itemId){
+            R.id.reset ->{
+                out1_date1_spinner.setSelection(0)
+                out1_time1_spinner.setSelection(0)
+                out1_date2_spinner.setSelection(0)
+                out1_time2_spinner.setSelection(0)
+                out2_date1_spinner.setSelection(0)
+                out2_time1_spinner.setSelection(0)
+                out2_date2_spinner.setSelection(0)
+                out2_time2_spinner.setSelection(0)
+            }
+        }
+        return super.onOptionsItemSelected(item)
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
