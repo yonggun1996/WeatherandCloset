@@ -12,7 +12,7 @@
                 android:color="#FF8200"
                 />
 
-            <solid android:color="#FFF"/>
+            <solid android:color="@color/background"/>
         </shape>
     </item>
 

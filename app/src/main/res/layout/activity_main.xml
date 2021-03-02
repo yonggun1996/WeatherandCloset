@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/background"
     tools:context=".MainActivity">
 
 
@@ -16,8 +17,8 @@
         android:layout_marginBottom="30dip"
         android:gravity="center"
         android:text="출근(등교)시간"
-        android:textColor="#282828"
         android:textSize="20sp"
+        android:textColor="@color/text"
         app:layout_constraintBottom_toTopOf="@+id/out1_date1_spinner"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
@@ -52,8 +53,8 @@
         android:layout_marginTop="30dip"
         android:gravity="center"
         android:text="부터"
-        android:textColor="#282828"
         android:textSize="15sp"
+        android:textColor="@color/text"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/out1_date1_spinner" />
 
@@ -87,8 +88,8 @@
         android:layout_marginTop="40dip"
         android:gravity="center"
         android:text="퇴근(하교)시간"
-        android:textColor="#282828"
         android:textSize="20sp"
+        android:textColor="@color/text"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/waring_tv" />
 
@@ -122,8 +123,8 @@
         android:layout_marginTop="30dip"
         android:gravity="center"
         android:text="부터"
-        android:textColor="#282828"
         android:textSize="15sp"
+        android:textColor="@color/text"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/out2_date1_spinner" />
 
@@ -157,7 +158,7 @@
         android:layout_marginBottom="100dp"
         android:background="@drawable/layout_border"
         android:text="설정한 시간으로 확인"
-        android:textColor="#282828"
+        android:textColor="@color/text"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -211,8 +212,8 @@
         android:layout_marginBottom="30dip"
         android:gravity="center"
         android:text="성별"
-        android:textColor="#282828"
         android:textSize="20sp"
+        android:textColor="@color/text"
         app:layout_constraintBottom_toTopOf="@+id/out1_time1_spinner"
         app:layout_constraintEnd_toStartOf="@+id/sex_Radio"
         app:layout_constraintTop_toTopOf="parent" />
@@ -225,7 +226,7 @@
         android:layout_marginBottom="50dip"
         android:background="@drawable/layout_border"
         android:text="현재 시간으로 확인"
-        android:textColor="#282828"
+        android:textColor="@color/text"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"

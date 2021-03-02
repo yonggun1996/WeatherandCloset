@@ -5,7 +5,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:orientation="vertical" android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:layout_margin="10dp">
+    android:layout_margin="10dp"
+    android:background="@color/background">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -19,8 +20,8 @@
             android:layout_gravity="center"
             android:text="설정한 시간의 날씨"
             android:textSize="30dp"
-            android:textColor="#282828"
-            android:layout_marginBottom="10dp"/>
+            android:layout_marginBottom="10dp"
+            android:textColor="@color/text"/>
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/mRecyclerView"
@@ -50,8 +51,8 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="-"
-            android:textColor="#282828"
-            android:textSize="20dp" />
+            android:textSize="20dp"
+            android:textColor="@color/text"/>
 
     </LinearLayout>
 
@@ -71,8 +72,8 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="-"
-            android:textColor="#282828"
-            android:textSize="20dp"/>
+            android:textSize="20dp"
+            android:textColor="@color/text"/>
 
     </LinearLayout>
 
@@ -92,8 +93,8 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="-"
-            android:textColor="#282828"
-            android:textSize="20dp"/>
+            android:textSize="20dp"
+            android:textColor="@color/text"/>
 
     </LinearLayout>
 
@@ -113,8 +114,8 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="-"
-            android:textColor="#282828"
-            android:textSize="20dp" />
+            android:textSize="20dp"
+            android:textColor="@color/text"/>
 
     </LinearLayout>
 

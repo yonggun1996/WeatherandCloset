@@ -7,7 +7,8 @@
     android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:layout_margin="10dp">
+    android:layout_margin="10dp"
+    android:background="@color/background">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -19,10 +20,10 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textSize="30dp"
-            android:textColor="#282828"
             android:layout_gravity="center"
             android:gravity="center"
-            android:text="현재 날씨"/>
+            android:text="현재 날씨"
+            android:textColor="@color/text"/>
 
         <!-- 이미지 삽입 -->
 
@@ -37,10 +38,10 @@
             android:id="@+id/now_weather"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textColor="#282828"
             android:textSize="20dp"
             android:layout_gravity="center"
-            android:text=""/>
+            android:text=""
+            android:textColor="@color/text"/>
 
         <TextView
             android:id="@+id/now_temp_tv"
@@ -48,8 +49,8 @@
             android:layout_height="wrap_content"
             android:textSize="20dp"
             android:layout_gravity="center"
-            android:textColor="#282828"
-            android:text="현재 기온"/>
+            android:text="현재 기온"
+            android:textColor="@color/text"/>
 
         <TextView
             android:id="@+id/feels_like_tv"
@@ -57,8 +58,8 @@
             android:layout_height="wrap_content"
             android:textSize="20dp"
             android:layout_gravity="center"
-            android:textColor="#282828"
-            android:text="체감 기온"/>
+            android:text="체감 기온"
+            android:textColor="@color/text"/>
 
     </LinearLayout>
 
@@ -79,9 +80,9 @@
             android:id="@+id/text_coat"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textColor="#282828"
             android:text="-"
-            android:textSize="20dp"/>
+            android:textSize="20dp"
+            android:textColor="@color/text"/>
 
     </LinearLayout>
 
@@ -101,8 +102,8 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="-"
-            android:textColor="#282828"
-            android:textSize="20dp"/>
+            android:textSize="20dp"
+            android:textColor="@color/text"/>
 
     </LinearLayout>
 
@@ -122,8 +123,8 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="-"
-            android:textColor="#282828"
-            android:textSize="20dp"/>
+            android:textSize="20dp"
+            android:textColor="@color/text"/>
 
     </LinearLayout>
 
@@ -143,8 +144,8 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="-"
-            android:textColor="#282828"
-            android:textSize="20dp"/>
+            android:textSize="20dp"
+            android:textColor="@color/text"/>
 
     </LinearLayout>
 </LinearLayout>

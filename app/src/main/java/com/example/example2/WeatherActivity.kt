@@ -3,6 +3,7 @@ package com.example.example2
 import android.content.pm.ActivityInfo
 import android.graphics.BitmapFactory
 import android.graphics.Color
+import android.os.Build
 import android.os.Bundle
 import android.util.Log
 import android.widget.ImageView
@@ -10,6 +11,7 @@ import android.widget.LinearLayout
 import android.widget.Toast
 import androidx.appcompat.app.ActionBar
 import androidx.appcompat.app.AppCompatActivity
+import androidx.appcompat.app.AppCompatDelegate
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.android.volley.Request
 import com.android.volley.RequestQueue
@@ -54,6 +56,12 @@ class WeatherActivity: AppCompatActivity() {
         setTitle("설정한 시간으로 확인")
         supportActionBar?.setLogo(R.drawable.appicon)
         requestedOrientation = ActivityInfo.SCREEN_ORIENTATION_PORTRAIT //세로 고정
+
+        if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q){
+            AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_FOLLOW_SYSTEM)
+        }else{
+            AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_AUTO_BATTERY)
+        }
 
         Log.d(TAG, "넘어왔습니다.")
         val i = intent

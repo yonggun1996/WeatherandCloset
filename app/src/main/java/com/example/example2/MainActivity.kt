@@ -7,6 +7,7 @@ import android.content.Intent
 import android.content.pm.ActivityInfo
 import android.content.pm.PackageManager
 import android.location.Location
+import android.os.Build
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
@@ -18,6 +19,7 @@ import android.widget.AdapterView
 import android.widget.ArrayAdapter
 import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
+import androidx.appcompat.app.AppCompatDelegate
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import com.google.android.gms.location.LocationServices
@@ -87,6 +89,11 @@ class MainActivity : AppCompatActivity() {
         supportActionBar?.setLogo(R.drawable.appicon)
         requestedOrientation = ActivityInfo.SCREEN_ORIENTATION_PORTRAIT//세로 고정
 
+        if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q){
+            AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_FOLLOW_SYSTEM)
+        }else{
+            AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_AUTO_BATTERY)
+        }
 
         out1_date1_spinner.adapter = ArrayAdapter(this, android.R.layout.simple_spinner_dropdown_item,datelist)
         out1_date1_spinner.onItemSelectedListener = object  : AdapterView.OnItemSelectedListener{
