@@ -96,6 +96,12 @@ class MainActivity : AppCompatActivity() {
 
             override fun onItemSelected(p0: AdapterView<*>?, p1: View?, p2: Int, p3: Long) {
                 out1_date1 = out1_date1_spinner.selectedItem as String
+
+                if(p2 == 0){
+                    out1_date2_spinner.setSelection(0)
+                }else if(p2 == 1){
+                    out1_date2_spinner.setSelection(1)
+                }
             }
         }
 
@@ -141,6 +147,12 @@ class MainActivity : AppCompatActivity() {
 
             override fun onItemSelected(p0: AdapterView<*>?, p1: View?, p2: Int, p3: Long) {
                 out2_date1 = out2_date1_spinner.selectedItem as String
+
+                if(p2 == 0){
+                    out2_date2_spinner.setSelection(0)
+                }else if(p2 == 1){
+                    out2_date2_spinner.setSelection(1)
+                }
             }
         }
 
