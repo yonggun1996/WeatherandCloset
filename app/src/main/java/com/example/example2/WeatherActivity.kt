@@ -402,12 +402,24 @@ class WeatherActivity: AppCompatActivity() {
 
         //일교차가 느껴진다면
         if(daily_cross_flag){
-            var outer_str = Outerwear_temperature()
+            var max_temp = feels_like_list.get(feels_like_list.size - 1)
+            var min_temp = feels_like_list.get(0)
+            Log.d(TAG,"최고온도 : ${max_temp} / 최저온도 : ${min_temp}")
+            Log.d(TAG,"추운가? : ${cold_day} / 더운가? : ${hot_day}")
 
             if(cold_day){
-                other_str += "\n일교차가 큰 날씨입니다. 더위를 잘 탄다면 ${outer_str}를 입는걸 추천합니다.\n"
+                var cold_day_closet = Outerwear_temperature(max_temp)
+                Log.d(TAG,"추울 땐 ${cold_day_closet}")
+                other_str += "\n일교차가 큰 날씨입니다. 더위를 잘 탄다면 ${cold_day_closet}를 입는걸 추천합니다.\n"
             }else if(hot_day){
-                other_str += "\n일교차가 큰 날씨입니다. 추위를 잘 탄다면 ${outer_str}를 입는걸 추천합니다.\n"
+                var hot_day_closet = Outerwear_temperature(min_temp)
+                Log.d(TAG,"더울 땐 ${hot_day_closet}")
+                other_str += "\n일교차가 큰 날씨입니다. 추위를 잘 탄다면 ${hot_day_closet}를 입는걸 추천합니다.\n"
+            }else{
+                var cold_day_closet = Outerwear_temperature(max_temp)
+                var hot_day_closet = Outerwear_temperature(min_temp)
+                Log.d(TAG,"추울 땐 ${cold_day_closet} 더울 땐 ${hot_day_closet}")
+                other_str += "\n일교차가 큰 날씨입니다. 더위를 잘 탄다면 ${cold_day_closet}을(를) 추위를 잘 탄다면 ${hot_day_closet}를 추천합니다."
             }
         }
 
@@ -441,7 +453,7 @@ class WeatherActivity: AppCompatActivity() {
         return sdf_str
     }
 
-    private fun Outerwear_temperature() : String{
+    private fun Outerwear_temperature(temp : Int) : String{
         var outer = ""
         var max_temp = feels_like_list.get(feels_like_list.size - 1)
         var min_temp = feels_like_list.get(0)
