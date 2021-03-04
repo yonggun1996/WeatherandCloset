@@ -78,3 +78,8 @@
 4. 다른 사이트에서 글꼴을 다운받아 적용하는 법을 알게 되었습니다.
   도움이 된 사이트 : https://bongcando.tistory.com/12
   글꼴을 얻어온 사이트 : http://levelup.nexon.com/font/index.aspx?page=5
+5. 다크모드를 적용하는 방법을 알게 되었습니다.
+   https://developer.android.com/guide/topics/ui/look-and-feel/darktheme?hl=ko
+   style 태그에 Theme.AppCompat.DayNight를 입력하면 다크모드가 되긴 하지만 글자의 색이랑 배경이랑 잘 어울리지 않아 또 다른 방법을 알아봤습니다.
+   https://yunaaaas.tistory.com/18
+   저는 사용자가 핸드폰에서 설정할 때 바뀌게끔 했습니다.
