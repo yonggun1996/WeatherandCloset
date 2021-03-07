@@ -106,8 +106,12 @@ class MainActivity : AppCompatActivity() {
 
                 if(p2 == 0){
                     out1_date2_spinner.setSelection(0)
+                    out2_date1_spinner.setSelection(0)
+                    out2_date2_spinner.setSelection(0)
                 }else if(p2 == 1){
                     out1_date2_spinner.setSelection(1)
+                    out2_date1_spinner.setSelection(1)
+                    out2_date2_spinner.setSelection(1)
                 }
             }
         }

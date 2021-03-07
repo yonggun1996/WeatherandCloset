@@ -26,7 +26,6 @@ class NowWeatherActivity : AppCompatActivity() {
     var longitude :Double? = null
     var sex_code = 0
     var flag_temp = 0
-    var flag_uvi = 0
     private val TAG = "WeatherActivity"
     lateinit var requestQueue : RequestQueue
 
@@ -63,9 +62,8 @@ class NowWeatherActivity : AppCompatActivity() {
                 val jsonObject = response.getJSONObject("current")
                 val temp = jsonObject["temp"].toString()
                 val feels_like = jsonObject["feels_like"].toString()
-                val uvi = jsonObject["uvi"].toString().toDouble()
 
-                Log.d(TAG,"기온 : ${temp} / 체감온도 : ${feels_like} / 자외선 : ${uvi}")
+                Log.d(TAG,"기온 : ${temp} / 체감온도 : ${feels_like}")
 
                 var current_weather_array = jsonObject.getJSONArray("weather")
                 var current_weather_object = current_weather_array.getJSONObject(0)
@@ -80,7 +78,6 @@ class NowWeatherActivity : AppCompatActivity() {
                 now_weather.setText(nowweather_str)
 
                 flag_temp = Math.round(feels_like.toDouble()).toInt()
-                flag_uvi = Math.round(uvi).toInt()
 
                 set_outer()
                 set_shirt()
@@ -291,20 +288,8 @@ class NowWeatherActivity : AppCompatActivity() {
             other_str = "추위를 느낄수도 있습니다. 핫팩을 챙기거나 발열내의를 입으시는걸 추천합니다."
         }else if(flag_temp >= 26 && flag_temp <= 30){
             other_str = "더위를 느낄수도 있습니다. 꽉 끼는옷은 추천하지 않습니다."
-
-            if(flag_uvi >= 3){
-                other_str += "\n자외선 지수가 높습니다. 밝은 계열의 옷을 추천합니다."
-            }
         }else if(flag_temp >= 31){
             other_str = "많이 덥습니다. 통풍이 잘 되는 옷을 추천합니다."
-
-            if(flag_uvi >= 3){
-                other_str += "\n자외선 지수가 높습니다. 밝은 계열의 옷을 추천합니다."
-            }
-        }else{
-            if(flag_uvi >= 3){
-                other_str += "\n자외선 지수가 높습니다. 밝은 계열의 옷을 추천합니다."
-            }
         }
 
 

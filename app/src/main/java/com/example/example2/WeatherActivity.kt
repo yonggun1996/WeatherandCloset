@@ -97,15 +97,13 @@ class WeatherActivity: AppCompatActivity() {
                     var dt_date = jsonArray.getJSONObject(index.toInt()).getLong("dt")//설정시간의 unixtime
                     var dt_feels_like = jsonArray.getJSONObject(index.toInt()).getDouble("feels_like")//설정시간의 체감온도
                     var dt_temp = jsonArray.getJSONObject(index.toInt()).getDouble("temp")//설정시간의 기온
-                    var dt_uv = jsonArray.getJSONObject(index.toInt()).getDouble("uvi")//설정시간의 자외선지수
                     var dt_weather = jsonArray.getJSONObject(index.toInt()).getJSONArray("weather")//설정시간의 Weather 배열을 불러오는 코드
                     var weather_array = dt_weather.getJSONObject(0)//Weather 배열을 읽어들이는 코드
                     var weather_icon = weather_array.getString("icon")//그 중 아이콘을 불러온다
 
                     feels_like_list.add(list_index,Math.round(dt_feels_like).toInt())
-                    uv_list.add(list_index,dt_uv)
 
-                    Log.d(TAG,"시간 : ${index} / 체감온도 : ${Math.round(dt_feels_like)} / 자외선 : ${dt_uv}")
+                    Log.d(TAG,"시간 : ${index} / 체감온도 : ${Math.round(dt_feels_like)}")
 
                     temp_total += Math.round(dt_feels_like).toInt()
                     list_index++
@@ -129,15 +127,13 @@ class WeatherActivity: AppCompatActivity() {
                         var dt_date = jsonArray.getJSONObject(index.toInt()).getLong("dt")//입력한 퇴근(하교)시간
                         var dt_feels_like = jsonArray.getJSONObject(index.toInt()).getDouble("feels_like")//입력한 시간의 체감온도
                         var dt_temp = jsonArray.getJSONObject(index.toInt()).getDouble("temp")//설정시간의 기온
-                        var dt_uv = jsonArray.getJSONObject(index.toInt()).getDouble("uvi")//입력한 시간의 자외선지수
                         var dt_weather = jsonArray.getJSONObject(index.toInt()).getJSONArray("weather")//설정시간의 Weather 배열을 불러오는 코드
                         var weather_array = dt_weather.getJSONObject(0)//Weather 배열을 설정하는 코드
                         var weather_icon = weather_array.getString("icon")//그 중 아이콘을 불러온다
 
                         feels_like_list.add(list_index,Math.round(dt_feels_like).toInt())
-                        uv_list.add(list_index,dt_uv)
 
-                        Log.d(TAG,"시간 : ${index} / 체감기온 : ${Math.round(dt_feels_like)} / 자외선 : ${dt_uv}")
+                        Log.d(TAG,"시간 : ${index} / 체감기온 : ${Math.round(dt_feels_like)}")
 
                         temp_total += Math.round(dt_feels_like).toInt()
                         list_index++
@@ -374,8 +370,6 @@ class WeatherActivity: AppCompatActivity() {
 
     //기타사항을 정의해주는 코드
     private fun set_other(){
-        uv_list.sort()
-        var uv_temp = uv_list.get(uv_list.size - 1)
         var other_str = ""
 
         if(flag_temp <= -1){
@@ -385,19 +379,9 @@ class WeatherActivity: AppCompatActivity() {
         }else if(flag_temp >= 26 && flag_temp <= 30){
             other_str = "더위를 느낄수도 있습니다. 꽉 끼는옷은 추천하지 않습니다.\n"
 
-            if(uv_temp >= 3){
-                other_str += "\n자외선 지수가 높습니다. 밝은 계열의 옷을 추천합니다.\n"
-            }
         }else if(flag_temp >= 31){
             other_str = "많이 덥습니다. 통풍이 잘 되는 옷을 추천합니다.\n"
 
-            if(uv_temp >= 3){
-                other_str += "\n자외선 지수가 높습니다. 밝은 계열의 옷을 추천합니다.\n"
-            }
-        }else{
-            if(uv_temp >= 3){
-                other_str += "\n자외선 지수가 높습니다. 밝은 계열의 옷을 추천합니다.\n"
-            }
         }
 
         //일교차가 느껴진다면
