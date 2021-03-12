@@ -40,8 +40,7 @@ class WeatherActivity: AppCompatActivity() {
     var unixtime2 = 0L
     var unixtime3 = 0L
     var unixtime4 = 0L
-    val feels_like_list = ArrayList<Int>()
-    val uv_list = ArrayList<Double>()
+    val temp_list = ArrayList<Int>()
     var flag_temp = 0 //기준이 되는 온도 설정
     var daily_cross_flag = false//일교차를 느끼는 온도인가 아닌가
     var hot_day = false
@@ -95,17 +94,17 @@ class WeatherActivity: AppCompatActivity() {
                 var temp_total = 0
                 for (index in start .. finish){
                     var dt_date = jsonArray.getJSONObject(index.toInt()).getLong("dt")//설정시간의 unixtime
-                    var dt_feels_like = jsonArray.getJSONObject(index.toInt()).getDouble("feels_like")//설정시간의 체감온도
+                    //var dt_feels_like = jsonArray.getJSONObject(index.toInt()).getDouble("feels_like")//설정시간의 체감온도
                     var dt_temp = jsonArray.getJSONObject(index.toInt()).getDouble("temp")//설정시간의 기온
                     var dt_weather = jsonArray.getJSONObject(index.toInt()).getJSONArray("weather")//설정시간의 Weather 배열을 불러오는 코드
                     var weather_array = dt_weather.getJSONObject(0)//Weather 배열을 읽어들이는 코드
                     var weather_icon = weather_array.getString("icon")//그 중 아이콘을 불러온다
 
-                    feels_like_list.add(list_index,Math.round(dt_feels_like).toInt())
+                    temp_list.add(list_index,Math.round(dt_temp).toInt())
 
-                    Log.d(TAG,"시간 : ${index} / 체감온도 : ${Math.round(dt_feels_like)}")
+                    Log.d(TAG,"시간 : ${index} / 기온 : ${dt_temp}")
 
-                    temp_total += Math.round(dt_feels_like).toInt()
+                    temp_total += Math.round(dt_temp).toInt()
                     list_index++
                     var setting_weather_txt = get_setting_weather(weather_icon)
                     var setting_date_txt = unixtoDate(dt_date)
@@ -125,17 +124,17 @@ class WeatherActivity: AppCompatActivity() {
 
                     for (index in start .. finish){
                         var dt_date = jsonArray.getJSONObject(index.toInt()).getLong("dt")//입력한 퇴근(하교)시간
-                        var dt_feels_like = jsonArray.getJSONObject(index.toInt()).getDouble("feels_like")//입력한 시간의 체감온도
+                        //var dt_feels_like = jsonArray.getJSONObject(index.toInt()).getDouble("feels_like")//입력한 시간의 체감온도
                         var dt_temp = jsonArray.getJSONObject(index.toInt()).getDouble("temp")//설정시간의 기온
                         var dt_weather = jsonArray.getJSONObject(index.toInt()).getJSONArray("weather")//설정시간의 Weather 배열을 불러오는 코드
                         var weather_array = dt_weather.getJSONObject(0)//Weather 배열을 설정하는 코드
                         var weather_icon = weather_array.getString("icon")//그 중 아이콘을 불러온다
 
-                        feels_like_list.add(list_index,Math.round(dt_feels_like).toInt())
+                        temp_list.add(list_index,Math.round(dt_temp).toInt())
 
-                        Log.d(TAG,"시간 : ${index} / 체감기온 : ${Math.round(dt_feels_like)}")
+                        Log.d(TAG,"시간 : ${index} / 기온 : ${Math.round(dt_temp)}")
 
-                        temp_total += Math.round(dt_feels_like).toInt()
+                        temp_total += Math.round(dt_temp).toInt()
                         list_index++
 
                         var setting_weather_txt = get_setting_weather(weather_icon)
@@ -170,33 +169,33 @@ class WeatherActivity: AppCompatActivity() {
 
     //기준온도를 정하는 함수
     private fun set_getup_tv(temp_total : Int, list_size : Int){
-        feels_like_list.sort()
+        temp_list.sort()
 
         var cold = 0//추운 온도는 얼마나 있는가
         var hot = 0//더운 온도는 얼마나 있는가
 
         //추운온도, 더운온도가 얼마나 있는지 나타내는 코드
         for(i in 0 .. list_size -1){
-            if(feels_like_list[i] <= 9){
+            if(temp_list[i] <= 9){
                 cold++
-            }else if(feels_like_list[i] >= 26){
+            }else if(temp_list[i] >= 26){
                 hot++
             }
         }//for
 
         //평균온도를 정하는 코드
         if(cold >= list_size / 2){//추운날이 절반 이상이면 최저온도
-            flag_temp = feels_like_list.get(0)
+            flag_temp = temp_list.get(0)
             cold_day = true
         }else if(hot >= list_size / 2){//더운날이 절반 이상이면 최고온도
-            flag_temp = feels_like_list.get(list_size - 1)
+            flag_temp = temp_list.get(list_size - 1)
             hot_day = true
         }else{//둘 다 해당되지 않으면 평균온도
             var temp_double= (temp_total / list_size).toDouble()
             flag_temp = Math.round(temp_double).toInt()
         }
 
-        if((feels_like_list.get(0) < 23 && feels_like_list.get(list_size - 1) > 4) && feels_like_list.get(list_size - 1) - feels_like_list.get(0) >= 7){
+        if((temp_list.get(0) < 23 && temp_list.get(list_size - 1) > 4) && temp_list.get(list_size - 1) - temp_list.get(0) >= 7){
             //일교차가 심하면 true
             daily_cross_flag = true
         }
@@ -374,7 +373,7 @@ class WeatherActivity: AppCompatActivity() {
 
         if(flag_temp <= -1){
             other_str = "많이 춥습니다. 목도리, 장갑, 귀마개, 핫팩, 발열내의등 방한도구를 챙기시는걸 추천합니다.\n"
-        }else if(flag_temp >= 0 && flag_temp <= 9){
+        }else if(flag_temp >= 0 && flag_temp <= 4){
             other_str = "추위를 느낄수도 있습니다. 핫팩을 챙기거나 발열내의를 입으시는걸 추천합니다.\n"
         }else if(flag_temp >= 26 && flag_temp <= 30){
             other_str = "더위를 느낄수도 있습니다. 꽉 끼는옷은 추천하지 않습니다.\n"
@@ -386,8 +385,8 @@ class WeatherActivity: AppCompatActivity() {
 
         //일교차가 느껴진다면
         if(daily_cross_flag){
-            var max_temp = feels_like_list.get(feels_like_list.size - 1)
-            var min_temp = feels_like_list.get(0)
+            var max_temp = temp_list.get(temp_list.size - 1)
+            var min_temp = temp_list.get(0)
             Log.d(TAG,"최고온도 : ${max_temp} / 최저온도 : ${min_temp}")
             Log.d(TAG,"추운가? : ${cold_day} / 더운가? : ${hot_day}")
 
@@ -439,8 +438,8 @@ class WeatherActivity: AppCompatActivity() {
 
     private fun Outerwear_temperature(temp : Int) : String{
         var outer = ""
-        var max_temp = feels_like_list.get(feels_like_list.size - 1)
-        var min_temp = feels_like_list.get(0)
+        var max_temp = temp_list.get(temp_list.size - 1)
+        var min_temp = temp_list.get(0)
         if(cold_day){
 
             when(max_temp){

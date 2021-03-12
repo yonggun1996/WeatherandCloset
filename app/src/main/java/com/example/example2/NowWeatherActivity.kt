@@ -77,7 +77,7 @@ class NowWeatherActivity : AppCompatActivity() {
                 val nowweather_str = set_nowWeather(icon_code)
                 now_weather.setText(nowweather_str)
 
-                flag_temp = Math.round(feels_like.toDouble()).toInt()
+                flag_temp = Math.round(temp.toDouble()).toInt()
 
                 set_outer()
                 set_shirt()
@@ -284,7 +284,7 @@ class NowWeatherActivity : AppCompatActivity() {
 
         if(flag_temp <= -1){
             other_str = "많이 춥습니다. 목도리, 장갑, 귀마개, 핫팩, 발열내의등 방한도구를 챙기시는걸 추천합니다."
-        }else if(flag_temp >= 0 && flag_temp <= 9){
+        }else if(flag_temp >= 0 && flag_temp <= 4){
             other_str = "추위를 느낄수도 있습니다. 핫팩을 챙기거나 발열내의를 입으시는걸 추천합니다."
         }else if(flag_temp >= 26 && flag_temp <= 30){
             other_str = "더위를 느낄수도 있습니다. 꽉 끼는옷은 추천하지 않습니다."
