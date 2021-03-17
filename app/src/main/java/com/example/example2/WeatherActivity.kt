@@ -391,18 +391,18 @@ class WeatherActivity: AppCompatActivity() {
             Log.d(TAG,"추운가? : ${cold_day} / 더운가? : ${hot_day}")
 
             if(cold_day){
-                var cold_day_closet = Outerwear_temperature(max_temp)
+                var cold_day_closet = Outerwear_temperature(min_temp)
                 Log.d(TAG,"추울 땐 ${cold_day_closet}")
                 other_str += "\n일교차가 큰 날씨입니다. 더위를 잘 탄다면 ${cold_day_closet}를 입는걸 추천합니다.\n"
             }else if(hot_day){
-                var hot_day_closet = Outerwear_temperature(min_temp)
+                var hot_day_closet = Outerwear_temperature(max_temp)
                 Log.d(TAG,"더울 땐 ${hot_day_closet}")
                 other_str += "\n일교차가 큰 날씨입니다. 추위를 잘 탄다면 ${hot_day_closet}를 입는걸 추천합니다.\n"
             }else{
-                var cold_day_closet = Outerwear_temperature(max_temp)
-                var hot_day_closet = Outerwear_temperature(min_temp)
+                var cold_day_closet = Outerwear_temperature(min_temp)
+                var hot_day_closet = Outerwear_temperature(max_temp)
                 Log.d(TAG,"추울 땐 ${cold_day_closet} 더울 땐 ${hot_day_closet}")
-                other_str += "\n일교차가 큰 날씨입니다. 더위를 잘 탄다면 ${cold_day_closet}을(를) 추위를 잘 탄다면 ${hot_day_closet}를 추천합니다."
+                other_str += "\n일교차가 큰 날씨입니다. 더위를 잘 탄다면 ${hot_day_closet}을(를) 추위를 잘 탄다면 ${cold_day_closet}를 추천합니다."
             }
         }
 
@@ -443,18 +443,37 @@ class WeatherActivity: AppCompatActivity() {
         if(cold_day){
 
             when(max_temp){
-                in 5..8 -> outer = "두껍지 않은 코트"
-                in 9 .. 16 -> outer = "자켓"
-                in 17 .. 19 -> outer = "가디건"
+                in 5..8 -> outer = "코트"
+                in 9 .. 14 -> outer = "자켓"
+                in 15 .. 19 -> outer = "가디건"
                 in 20 .. 22 -> outer = "얇은 가디건"
+            }
+
+            if(temp <= 4){
+                outer = "패딩"
             }
         }else if(hot_day){
 
             when(min_temp){
                 in 20 .. 22 -> outer = "얇은 가디건"
-                in 17 .. 19 -> outer = "가디건"
-                in 9 .. 16 -> outer = "자켓"
-                in 5..8 -> outer = "두껍지 않은 코트"
+                in 15 .. 19 -> outer = "가디건"
+                in 9 .. 14 -> outer = "자켓"
+                in 5..8 -> outer = "코트"
+            }
+
+            if(temp <= 4){
+                outer = "패딩"
+            }
+        }else{
+            when(temp){
+                in 20 .. 22 -> outer = "얇은 가디건"
+                in 15 .. 19 -> outer = "가디건"
+                in 9 .. 14 -> outer = "자켓"
+                in 5..8 -> outer = "코트"
+            }
+
+            if(temp <= 4){
+                outer = "패딩"
             }
         }
 
