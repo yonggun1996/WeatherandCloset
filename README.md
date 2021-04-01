@@ -1,9 +1,9 @@
 # 기온별 옷차림을 알려주는 프로젝트 앱
 
-## 기술 스텍
+## 기술 스택
  - androidstudio
  - kotlin언어
- - volley로 json 파
+ - volley로 json 파싱
 
 ## 어떤 앱인가요?
 
