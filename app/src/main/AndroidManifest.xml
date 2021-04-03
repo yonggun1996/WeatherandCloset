@@ -46,11 +46,11 @@
 
         </activity>
 
-        <activity android:name=".WeatherData">
+        <activity android:name=".NowWeatherActivity">
 
         </activity>
 
-        <activity android:name=".NowWeatherActivity">
+        <activity android:name=".FragmentActivity">
 
         </activity>
 
@@ -61,6 +61,7 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+
     </application>
 
 </manifest>

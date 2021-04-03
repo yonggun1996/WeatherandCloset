@@ -1,9 +1,11 @@
 package com.example.example2
 
 import android.Manifest
+import android.app.Activity
 import android.content.Context
 import android.content.DialogInterface
 import android.content.Intent
+import android.content.SharedPreferences
 import android.content.pm.ActivityInfo
 import android.content.pm.PackageManager
 import android.location.Location
@@ -86,6 +88,7 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
         setTitle("Weather & Closet")
+        Log.d(TAG, "main으로 넘어왔습니다.")
         supportActionBar?.setLogo(R.drawable.appicon)
         requestedOrientation = ActivityInfo.SCREEN_ORIENTATION_PORTRAIT//세로 고정
 
