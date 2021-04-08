@@ -182,7 +182,7 @@ class NowWeatherActivity : AppCompatActivity() {
             word = false
         }
 
-        if(flag_temp <= 16){
+        if(flag_temp <= 13){
             shirt_stringbuilder.append("니트, ")
             word = false
         }
@@ -198,7 +198,7 @@ class NowWeatherActivity : AppCompatActivity() {
             word = false
         }
 
-        if (flag_temp >= 17 && flag_temp <= 19){
+        if (flag_temp >= 14 && flag_temp <= 19){
             shirt_stringbuilder.append("얇은 니트, ")
             word = false
         }

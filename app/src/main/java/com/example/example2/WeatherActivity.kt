@@ -183,6 +183,7 @@ class WeatherActivity: AppCompatActivity() {
             }
         }//for
 
+        Log.d(TAG, "총 온도 : ${temp_total} / 리스트 길이 : ${list_size} / 추운시간 : ${cold} / 더운시간 : ${hot}")
         //평균온도를 정하는 코드
         if(cold >= list_size / 2){//추운날이 절반 이상이면 최저온도
             flag_temp = temp_list.get(0)
@@ -191,7 +192,7 @@ class WeatherActivity: AppCompatActivity() {
             flag_temp = temp_list.get(list_size - 1)
             hot_day = true
         }else{//둘 다 해당되지 않으면 평균온도
-            var temp_double= (temp_total / list_size).toDouble()
+            var temp_double= temp_total.toDouble() / list_size.toDouble()
             flag_temp = Math.round(temp_double).toInt()
         }
 
@@ -200,7 +201,7 @@ class WeatherActivity: AppCompatActivity() {
             daily_cross_flag = true
         }
 
-        Log.d(TAG,"기준온도 : ${flag_temp}")
+        Log.d(TAG,"기준온도 : ${flag_temp} / 추운가? : ${cold_day} / 더운가? : ${hot_day}")
     }
 
     //외투를 설정하는 함수
@@ -271,7 +272,7 @@ class WeatherActivity: AppCompatActivity() {
             word = false
         }
 
-        if(flag_temp <= 16){
+        if(flag_temp <= 13){
             shirt_stringbuilder.append("니트, ")
             word = false
         }
@@ -287,7 +288,7 @@ class WeatherActivity: AppCompatActivity() {
             word = false
         }
 
-        if (flag_temp >= 17 && flag_temp <= 19){
+        if (flag_temp >= 14 && flag_temp <= 19){
             shirt_stringbuilder.append("얇은 니트, ")
             word = false
         }
@@ -391,11 +392,11 @@ class WeatherActivity: AppCompatActivity() {
             Log.d(TAG,"추운가? : ${cold_day} / 더운가? : ${hot_day}")
 
             if(cold_day){
-                var cold_day_closet = Outerwear_temperature(min_temp)
+                var cold_day_closet = Outerwear_temperature(max_temp)
                 Log.d(TAG,"추울 땐 ${cold_day_closet}")
                 other_str += "\n일교차가 큰 날씨입니다. 더위를 잘 탄다면 ${cold_day_closet}를 입는걸 추천합니다.\n"
             }else if(hot_day){
-                var hot_day_closet = Outerwear_temperature(max_temp)
+                var hot_day_closet = Outerwear_temperature(min_temp)
                 Log.d(TAG,"더울 땐 ${hot_day_closet}")
                 other_str += "\n일교차가 큰 날씨입니다. 추위를 잘 탄다면 ${hot_day_closet}를 입는걸 추천합니다.\n"
             }else{
