@@ -35,7 +35,7 @@ class SplashActivity: AppCompatActivity() {
 
         }else{
             Handler().postDelayed({//이미 앱을 실행시킨 이력이 있는 경우
-                startActivity(Intent(this, MainActivity::class.java))
+                startActivity(Intent(this, BottomnavMain::class.java))
                 finish()
             },SPLASH_TIME)
         }
