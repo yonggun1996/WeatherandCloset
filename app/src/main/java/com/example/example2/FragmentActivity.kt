@@ -27,7 +27,7 @@ class FragmentActivity : AppCompatActivity(){
 
         next_button.setOnClickListener {
             if(viewPager2.currentItem == 4){//마침버튼을 누르면 main페이지로 이동
-                startActivity(Intent(this, BottomnavMain::class.java))
+                startActivity(Intent(this, MainActivity::class.java))
                 finish()
             }else{//버튼을 눌렀을 때 마지막 페이지가 아니면 다음 장으로 넘긴다
                 viewPager2.currentItem = viewPager2.currentItem + 1
