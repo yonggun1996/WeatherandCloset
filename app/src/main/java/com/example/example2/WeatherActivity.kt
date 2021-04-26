@@ -403,7 +403,7 @@ class WeatherActivity: AppCompatActivity() {
                 var cold_day_closet = Outerwear_temperature(min_temp)
                 var hot_day_closet = Outerwear_temperature(max_temp)
                 Log.d(TAG,"추울 땐 ${cold_day_closet} 더울 땐 ${hot_day_closet}")
-                other_str += "\n일교차가 큰 날씨입니다. 더위를 잘 탄다면 ${hot_day_closet}을(를) 추위를 잘 탄다면 ${cold_day_closet}를 추천합니다."
+                other_str += "\n일교차가 큰 날씨입니다. 더위를 잘 탄다면 ${hot_day_closet} 추위를 잘 탄다면 ${cold_day_closet} 추천합니다."
             }
         }
 
@@ -442,39 +442,43 @@ class WeatherActivity: AppCompatActivity() {
         var max_temp = temp_list.get(temp_list.size - 1)
         var min_temp = temp_list.get(0)
         if(cold_day){
-
-            when(max_temp){
-                in 5..8 -> outer = "코트"
-                in 9 .. 14 -> outer = "자켓"
-                in 15 .. 19 -> outer = "가디건"
-                in 20 .. 22 -> outer = "얇은 가디건"
-            }
-
-            if(temp <= 4){
-                outer = "패딩"
+            if(max_temp >= 5 && max_temp <= 8){
+                outer = "코트를"
+            }else if(max_temp >= 9 && max_temp <= 14){
+                outer = "자켓을"
+            }else if(max_temp >= 15 && max_temp <= 19){
+                outer = "가디건을"
+            }else if(max_temp >= 20 && max_temp <= 22){
+                outer = "얇은 가디건을"
+            }else{
+                outer = "외투를 입지 않는것을"
             }
         }else if(hot_day){
 
-            when(min_temp){
-                in 20 .. 22 -> outer = "얇은 가디건"
-                in 15 .. 19 -> outer = "가디건"
-                in 9 .. 14 -> outer = "자켓"
-                in 5..8 -> outer = "코트"
-            }
-
-            if(temp <= 4){
-                outer = "패딩"
+            if(min_temp >= 5 && min_temp <= 8){
+                outer = "코트를"
+            }else if(min_temp >= 9 && min_temp <= 14){
+                outer = "자켓을"
+            }else if(min_temp >= 15 && min_temp <= 19){
+                outer = "가디건을"
+            }else if(min_temp >= 20 && min_temp <= 22){
+                outer = "얇은 가디건을"
+            }else{
+                outer = "패딩을"
             }
         }else{
-            when(temp){
-                in 20 .. 22 -> outer = "얇은 가디건"
-                in 15 .. 19 -> outer = "가디건"
-                in 9 .. 14 -> outer = "자켓"
-                in 5..8 -> outer = "코트"
-            }
-
             if(temp <= 4){
-                outer = "패딩"
+                outer = "패딩을"
+            } else if(temp >= 5 && temp <= 8){
+                outer = "코트를"
+            }else if(temp >= 9 && temp <= 14){
+                outer = "자켓을"
+            }else if(temp >= 15 && temp <= 19){
+                outer = "가디건을"
+            }else if(temp >= 20 && temp <= 22){
+                outer = "얇은 가디건을"
+            }else{
+                outer = "외투를 입지 않는것을"
             }
         }
 
